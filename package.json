@@ -1,0 +1,54 @@
+{
+  "name": "imagemin-jpeg-recompress",
+  "version": "0.0.0",
+  "description": "jpeg-recompress imagemin plugin",
+  "license": "MIT",
+  "repository": "shinnn/imagemin-jpeg-recompress",
+  "author": {
+    "name": "Shinnosuke Watanabe",
+    "url": "https://github.com/shinnn"
+  },
+  "engines": {
+    "node": ">=0.10.0"
+  },
+  "scripts": {
+    "lint": "jshint *.js --reporter node_modules/jshint-stylish/stylish",
+    "build-main": "traceur --out build/index-es5.js --script index.js",
+    "build-test": "traceur --out build/test-es5.js --script test/test.js",
+    "pretest": "npm run lint & rimraf build && npm run build-main && npm run build-test",
+    "test": "mocha build/test-es5.js --reporter list"
+  },
+  "main": "./build/index-es5.js",
+  "files": [
+    "./build/index-es5.js"
+  ],
+  "keywords": [
+    "compress",
+    "compression",
+    "image",
+    "imageminplugin",
+    "img",
+    "jpg",
+    "jpeg",
+    "minify",
+    "minification",
+    "optimize",
+    "optimization"
+  ],
+  "dependencies": {
+    "exec-buffer": "^0.1.1",
+    "image-type": "^0.1.4",
+    "tempfile": "^0.1.3",
+    "jpeg-recompress-bin": "0.1.4"
+  },
+  "devDependencies": {
+    "imagemin": "^0.4.6",
+    "jshint": "^2.5.1",
+    "jshint-stylish": "^0.2.0",
+    "maxmin": "^0.2.0",
+    "mocha": "^1.19.0",
+    "q": "^2.0.1",
+    "rimraf": "^2.2.8",
+    "traceur": "0.0.42"
+  }
+}
