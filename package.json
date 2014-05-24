@@ -19,9 +19,6 @@
     "test": "mocha build/test-es5.js --reporter list"
   },
   "main": "./build/index-es5.js",
-  "files": [
-    "./build/index-es5.js"
-  ],
   "keywords": [
     "compress",
     "compression",
