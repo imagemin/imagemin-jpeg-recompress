@@ -45,8 +45,8 @@ module.exports = (opts = {}) => {
     if (opts.defish !== undefined && 0 <= opts.defish) {
       args.push('-d', opts.defish);
     }
-    if (opts.zoom !== undefined && 0 <= opts.defish) {
-      args.push('-d', opts.zoom);
+    if (opts.zoom !== undefined && 0 <= opts.zoom) {
+      args.push('-z', opts.zoom);
     }
 
     exec
