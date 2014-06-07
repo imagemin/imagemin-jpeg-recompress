@@ -24,12 +24,12 @@ var Imagemin = require('imagemin');
 var jpegRecompress = require('imagemin-jpeg-recompress');
 
 var imagemin = new Imagemin()
-    .src('foo.jpg')
-    .dest('foo-optimized.jpg')
-    .use(jpegRecompress({
-      quality: 'high',
-      progressive: true
-    }));
+  .src('foo.jpg')
+  .dest('foo-optimized.jpg')
+  .use(jpegRecompress({
+    quality: 'high',
+    progressive: true
+  }));
 
 imagemin.optimize();
 ```
