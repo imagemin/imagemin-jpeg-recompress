@@ -18,7 +18,7 @@ var imagemin = new Imagemin()
   .dest('optimized.jpg')
   .use(jpegRecompress({
     progressive: true,
-    loop: 3
+    loops: 3
   }));
 
 imagemin.optimize();
@@ -34,7 +34,7 @@ imagemin.optimize();
 
 ## Installation
 
-Install with [npm](https://www.npmjs.org/). Make sure you have installed [Node](http://nodejs.org/) and libjpeg (or libjpeg-turbo) because this plugin depends on [JPEG Archive](https://github.com/danielgtaylor/jpeg-archive).
+Install with [npm](https://www.npmjs.org/). Make sure you have installed [Node](http://nodejs.org/) and [libjpeg](http://www.ijg.org/ "Independent JPEG Group") (or [libjpeg-turbo](http://libjpeg-turbo.virtualgl.org/)) because this plugin depends on [JPEG Archive](https://github.com/danielgtaylor/jpeg-archive).
 
 Read [the documentation of JPEG Archive](https://github.com/danielgtaylor/jpeg-archive#dependencies) for more information.
 
