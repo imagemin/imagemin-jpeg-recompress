@@ -7,6 +7,30 @@
 
 [jpeg-recompress](https://github.com/danielgtaylor/jpeg-archive#jpeg-recompress) plugin for [imagemin](https://github.com/kevva/imagemin)
 
+## Example
+
+```javascript
+var Imagemin = require('imagemin');
+var jpegRecompress = require('imagemin-jpeg-recompress');
+
+var imagemin = new Imagemin()
+  .src('original.jpg')
+  .dest('optimized.jpg')
+  .use(jpegRecompress({
+    progressive: true
+  }));
+
+imagemin.optimize();
+```
+
+**original.jpg**: 663,355 bytes
+
+![Original image](./example/original.jpg)
+
+**optimized.jpg**: 230,920 bytes (65% saved)
+
+![Original image](./example/optimized.jpg)
+
 ## Installation
 
 Install with [npm](https://www.npmjs.org/). Make sure you have installed [Node](http://nodejs.org/) and libjpeg (or libjpeg-turbo) because this plugin depends on [JPEG Archive](https://github.com/danielgtaylor/jpeg-archive).
@@ -15,23 +39,6 @@ Read [the document of JPEG Archive](https://github.com/danielgtaylor/jpeg-archiv
 
 ```
 npm install --save imagemin-jpeg-recompress
-```
-
-## Usage
-
-```javascript
-var Imagemin = require('imagemin');
-var jpegRecompress = require('imagemin-jpeg-recompress');
-
-var imagemin = new Imagemin()
-  .src('foo.jpg')
-  .dest('foo-optimized.jpg')
-  .use(jpegRecompress({
-    quality: 'high',
-    progressive: true
-  }));
-
-imagemin.optimize();
 ```
 
 ## API
