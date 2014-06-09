@@ -23,6 +23,7 @@ describe('jpegRecompress()', () => {
       target: 0.999,
       min: 95,
       max: 96,
+      loops: 1,
       progressive: true
     }))
     .optimize((err, file) => {

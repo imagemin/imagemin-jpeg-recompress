@@ -34,7 +34,7 @@ module.exports = (opts = {}) => {
       args.push('-m', opts.max);
     }
     if (opts.loops !== undefined && 0 <= opts.loops) {
-      args.push('-l', opts.max);
+      args.push('-l', opts.loops);
     }
     if (opts.progressive) {
       args.push('-p');
