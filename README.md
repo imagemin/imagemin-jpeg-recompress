@@ -17,7 +17,8 @@ var imagemin = new Imagemin()
   .src('original.jpg')
   .dest('optimized.jpg')
   .use(jpegRecompress({
-    progressive: true
+    progressive: true,
+    loop: 3
   }));
 
 imagemin.optimize();
@@ -25,17 +26,17 @@ imagemin.optimize();
 
 **original.jpg**: 663,355 bytes
 
-![Original image](./example/original.jpg)
+![Original image (from http://commons.wikimedia.org/wiki/File:European_shorthair_procumbent_Quincy.jpg)](./example/original.jpg)
 
-**optimized.jpg**: 230,920 bytes (65% saved)
+**optimized.jpg**: 143,915 bytes (78% saved)
 
-![Original image](./example/optimized.jpg)
+![Optimized image](./example/optimized.jpg)
 
 ## Installation
 
 Install with [npm](https://www.npmjs.org/). Make sure you have installed [Node](http://nodejs.org/) and libjpeg (or libjpeg-turbo) because this plugin depends on [JPEG Archive](https://github.com/danielgtaylor/jpeg-archive).
 
-Read [the document of JPEG Archive](https://github.com/danielgtaylor/jpeg-archive#dependencies) for more information.
+Read [the documentation of JPEG Archive](https://github.com/danielgtaylor/jpeg-archive#dependencies) for more information.
 
 ```
 npm install --save imagemin-jpeg-recompress
