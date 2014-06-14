@@ -33,7 +33,7 @@ describe('jpegRecompress()', () => {
         optimizeDeferred.resolve(file.contents);
       }
     });
-    
+
     return Q.all([
       readFile(imagemin.src()),
       optimizeDeferred.promise

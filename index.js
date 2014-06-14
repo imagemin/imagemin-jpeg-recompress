@@ -9,7 +9,7 @@ module.exports = (opts = {}) => {
   if (opts.strip === undefined) {
     opts.strip = true;
   }
-  
+
   return function(file, imagemin, callback) {
     if (imageType(file.contents) !== 'jpg') {
       return callback();
@@ -17,7 +17,7 @@ module.exports = (opts = {}) => {
 
     var exec = new ExecBuffer();
     var args = [];
-        
+
     exec.src(tempfile('.jpg'));
     exec.dest(tempfile('.jpg'));
 
