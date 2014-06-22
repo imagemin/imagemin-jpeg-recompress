@@ -1,7 +1,7 @@
 'use strict';
 
 var ExecBuffer = require('exec-buffer');
-var imageType = require('image-type');
+var isJpg = require('is-jpg');
 var jpegRecompress = require('jpeg-recompress-bin').path;
 var tempfile = require('tempfile');
 
@@ -11,15 +11,16 @@ module.exports = (opts = {}) => {
   }
 
   return function(file, imagemin, callback) {
-    if (imageType(file.contents) !== 'jpg') {
+    if (! isJpg(file.contents)) {
       return callback();
     }
 
     var exec = new ExecBuffer();
-    var args = [];
 
     exec.src(tempfile('.jpg'));
     exec.dest(tempfile('.jpg'));
+
+    var args = [exec.src(), exec.dest()];
 
     if (opts.target !== undefined && 0 <= opts.target && opts.target <= 1) {
       args.push('-t', opts.target);
@@ -50,9 +51,12 @@ module.exports = (opts = {}) => {
     }
 
     exec
-    .use(jpegRecompress, args.concat([exec.src(), exec.dest()]))
-    .run(file.contents, function(err, buf) {
+    .use(jpegRecompress, args)
+    .run(file.contents, (err, buf) => {
       if (err) {
+        if (err.code === 2) {
+          return callback();
+        }
         return callback(err);
       }
 
