@@ -3,46 +3,68 @@
 var assert = require('assert');
 var path = require('path');
 
-var Imagemin = require('imagemin');
-var Q = require('q');
+var Bluebird = require('bluebird');
+var chalk = require('chalk');
+var cwd = require('cwd');
 var maxmin = require('maxmin');
 
-var pkg = require(path.join(process.cwd(), 'package.json'));
-var jpegRecompress = require(path.join(process.cwd(), pkg.main));
+var Imagemin = require('imagemin');
+Imagemin.prototype.optimizePromise = Bluebird.promisify(Imagemin.prototype.optimize);
 
-var readFile = Q.denodeify(require('fs').readFile);
+var jpegRecompress = require('require-main')();
+
+var readFile = Bluebird.promisify(require('fs').readFile);
+
+function getBuffersPromise(imagemin, callback) {
+  return Bluebird.all([
+    readFile(imagemin.src()),
+    imagemin.optimizePromise()
+  ]).spread(function(srcBuf, file) {
+    callback(srcBuf, file.contents);
+  });
+}
+
+function printOptimizeResult(filePath, srcBuf, destBuf) {
+  var jpgname = path.basename(filePath);
+  console.log(`      ${chalk.cyan(jpgname)}: ${maxmin(srcBuf, destBuf, false)}`);
+}
 
 describe('jpegRecompress()', () => {
-  it('should optimize a JPEG', () => {
-    var imagemin = new Imagemin();
-    var optimizeDeferred = Q.defer();
+  it('should optimize a JPEG.', () => {
+    let imagemin = new Imagemin();
 
     imagemin
-    .src(path.join(process.cwd(), 'test/fixture.jpg'))
+    .src(cwd('test/fixture.jpg'))
     .use(jpegRecompress({
       target: 0.999,
       min: 95,
       max: 96,
       loops: 1,
       progressive: true
-    }))
-    .optimize((err, file) => {
-      if (err) {
-        optimizeDeferred.reject(new Error(err));
-      } else {
-        optimizeDeferred.resolve(file.contents);
-      }
-    });
+    }));
 
-    return Q.all([
-      readFile(imagemin.src()),
-      optimizeDeferred.promise
-    ]).spread((srcBuf, destBuf) => {
+    return getBuffersPromise(imagemin, (srcBuf, destBuf) => {
       assert(destBuf.length < srcBuf.length);
       assert(destBuf.length > 0);
-      after(() => {
-        console.log('    test/fixture.jpg: ' + maxmin(srcBuf, destBuf, false));
-      });
+      printOptimizeResult(imagemin.src(), srcBuf, destBuf);
+    });
+  });
+  it('should pass an already optimized JPEG as it is.', () => {
+    let imagemin = new Imagemin();
+
+    imagemin
+    .src(cwd('test/fixture-small.jpg'))
+    .use(jpegRecompress({
+      target: 0.001,
+      max: 1,
+      loops: 1,
+      defish: 0.7,
+      zoom: 10
+    }));
+
+    return getBuffersPromise(imagemin, (srcBuf, destBuf) => {
+      assert.strictEqual(destBuf.length, srcBuf.length);
+      printOptimizeResult(imagemin.src(), srcBuf, destBuf);
     });
   });
 });
