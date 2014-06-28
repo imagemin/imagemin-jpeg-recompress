@@ -16,7 +16,7 @@
     "build-main": "traceur --experimental --out build/index-es5.js --script index.js",
     "build-test": "traceur --experimental --out build/test-es5.js --script test/test.js",
     "pretest": "npm run lint & rimraf build && npm run build-main && npm run build-test",
-    "test": "mocha build/test-es5.js --reporter spec --timeout 0"
+    "test": "mocha build/test-es5.js --reporter spec --timeout 10000"
   },
   "main": "./build/index-es5.js",
   "keywords": [
