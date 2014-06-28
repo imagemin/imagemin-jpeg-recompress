@@ -68,12 +68,15 @@ describe('jpegRecompress()', () => {
     });
   });
   it('should throw an error when the JPEG is corrupt.', done => {
-    let imagemin = new Imagemin();
-
-    imagemin
+    new Imagemin()
     .src(cwd('test/fixture-broken.jpg'))
     .use(jpegRecompress())
-    .optimizePromise()
-    .catch(Error, () => done());
+    .optimize(err => {
+      if (err.code !== 2) {
+        done();
+        return;
+      }
+      done(err);
+    });
   });
 });
