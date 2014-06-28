@@ -12,7 +12,7 @@
     "node": ">=0.10.0"
   },
   "scripts": {
-    "lint": "jshint *.js --reporter node_modules/jshint-stylish/stylish",
+    "lint": "jshint *.js test/test.js --reporter node_modules/jshint-stylish/stylish",
     "build-main": "traceur --experimental --out build/index-es5.js --script index.js",
     "build-test": "traceur --experimental --out build/test-es5.js --script test/test.js",
     "pretest": "npm run lint & rimraf build && npm run build-main && npm run build-test",
