@@ -26,15 +26,15 @@ imagemin.optimize();
 
 **original.jpg**: 663,355 bytes
 
-![Original image (from http://commons.wikimedia.org/wiki/File:European_shorthair_procumbent_Quincy.jpg)](./example/original.jpg)
+![Original image (from http://commons.wikimedia.org/wiki/File:European_shorthair_procumbent_Quincy.jpg)](https://raw.githubusercontent.com/shinnn/imagemin-jpeg-recompress/master/example/original.jpg)
 
 **optimized.jpg**: 143,915 bytes (78% saved)
 
-![Optimized image](./example/optimized.jpg)
+![Optimized image](https://raw.githubusercontent.com/shinnn/imagemin-jpeg-recompress/master/example/optimized.jpg)
 
 ## Installation
 
-Install with [npm](https://www.npmjs.org/). Make sure you have installed [Node](http://nodejs.org/) and [libjpeg](http://www.ijg.org/ "Independent JPEG Group") (or [libjpeg-turbo](http://libjpeg-turbo.virtualgl.org/)) because this plugin depends on [JPEG Archive](https://github.com/danielgtaylor/jpeg-archive).
+[Install with npm](https://www.npmjs.org/doc/cli/npm-install.html). Make sure you have installed [Node](http://nodejs.org/) and [libjpeg](http://www.ijg.org/ "Independent JPEG Group") (or [libjpeg-turbo](http://libjpeg-turbo.virtualgl.org/)) because this plugin depends on [JPEG Archive](https://github.com/danielgtaylor/jpeg-archive).
 
 Read [the documentation of JPEG Archive](https://github.com/danielgtaylor/jpeg-archive#dependencies) for more information.
 
