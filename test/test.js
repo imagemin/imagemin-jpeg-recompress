@@ -5,7 +5,6 @@ var path = require('path');
 
 var Bluebird = require('bluebird');
 var chalk = require('chalk');
-var cwd = require('cwd');
 var maxmin = require('maxmin');
 
 var Imagemin = require('imagemin');
@@ -34,7 +33,7 @@ describe('jpegRecompress()', () => {
     let imagemin = new Imagemin();
 
     imagemin
-    .src(cwd('test/fixture.jpg'))
+    .src('test/fixture.jpg')
     .use(jpegRecompress({
       target: 0.999,
       min: 95,
@@ -53,7 +52,7 @@ describe('jpegRecompress()', () => {
     let imagemin = new Imagemin();
 
     imagemin
-    .src(cwd('test/fixture-small.jpg'))
+    .src('test/fixture-small.jpg')
     .use(jpegRecompress({
       target: 0.001,
       max: 1,
@@ -69,7 +68,7 @@ describe('jpegRecompress()', () => {
   });
   it('should throw an error when the JPEG is corrupt.', done => {
     new Imagemin()
-    .src(cwd('test/fixture-broken.jpg'))
+    .src('test/fixture-broken.jpg')
     .use(jpegRecompress())
     .optimize(err => {
       if (err.code !== 2) {

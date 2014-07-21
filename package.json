@@ -43,7 +43,6 @@
   "devDependencies": {
     "bluebird": "^2.2.1",
     "chalk": "^0.5.1",
-    "cwd": "^0.3.7",
     "imagemin": "^0.4.6",
     "jshint": "^2.5.2",
     "jshint-stylish": "^0.4.0",
