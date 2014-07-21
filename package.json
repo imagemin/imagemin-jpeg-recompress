@@ -13,10 +13,10 @@
   },
   "scripts": {
     "lint": "jshint *.js test/test.js --reporter node_modules/jshint-stylish/stylish",
-    "build-main": "traceur --experimental --out build/index-es5.js --script index.js",
+    "build-main": "traceur --out build/index-es5.js --script index.js",
     "build-test": "traceur --experimental --out build/test-es5.js --script test/test.js",
     "build": "${npm_package_scripts_build_main} & ${npm_package_scripts_build_test}",
-    "pretest": "npm run-script lint & rimraf build && npm run-script build",
+    "pretest": "${npm_package_scripts_lint} & rimraf build && npm run-script build",
     "test": "mocha build/test-es5.js --reporter spec --timeout 10000"
   },
   "main": "./build/index-es5.js",
