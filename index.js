@@ -5,7 +5,7 @@ var isJpg = require('is-jpg');
 var jpegRecompress = require('jpeg-recompress-bin').path;
 var tempfile = require('tempfile');
 
-module.exports = (opts = {}) => {
+module.exports = function imageminJpegRecompress(opts = {}) {
   if (opts.strip === undefined) {
     opts.strip = true;
   }
