@@ -7,6 +7,8 @@
 
 [jpeg-recompress](https://github.com/danielgtaylor/jpeg-archive#jpeg-recompress) plugin for [imagemin](https://github.com/kevva/imagemin)
 
+*Note that this plugin does [lossy compression](http://wikipedia.org/wiki/Lossy_compression).*
+
 ## Example
 
 ```javascript
@@ -16,10 +18,7 @@ var jpegRecompress = require('imagemin-jpeg-recompress');
 var imagemin = new Imagemin()
   .src('original.jpg')
   .dest('optimized.jpg')
-  .use(jpegRecompress({
-    progressive: true,
-    loops: 3
-  }));
+  .use(jpegRecompress({loops: 3}));
 
 imagemin.optimize();
 ```
@@ -28,15 +27,13 @@ imagemin.optimize();
 
 ![Original image (from http://commons.wikimedia.org/wiki/File:European_shorthair_procumbent_Quincy.jpg)](https://raw.githubusercontent.com/shinnn/imagemin-jpeg-recompress/master/example/original.jpg)
 
-**optimized.jpg**: 143,915 bytes (78% saved)
+**optimized.jpg**: 130,338 bytes (80.3% saved)
 
 ![Optimized image](https://raw.githubusercontent.com/shinnn/imagemin-jpeg-recompress/master/example/optimized.jpg)
 
 ## Installation
 
-[Install with npm](https://www.npmjs.org/doc/cli/npm-install.html). Make sure you have installed [Node](http://nodejs.org/) and [libjpeg](http://www.ijg.org/ "Independent JPEG Group") (or [libjpeg-turbo](http://libjpeg-turbo.virtualgl.org/)) because this plugin depends on [JPEG Archive](https://github.com/danielgtaylor/jpeg-archive).
-
-Read [the documentation of JPEG Archive](https://github.com/danielgtaylor/jpeg-archive#dependencies) for more information.
+[Install with npm](https://www.npmjs.org/doc/cli/npm-install.html). (Make sure you have installed [Node](http://nodejs.org/))
 
 ```
 npm install --save imagemin-jpeg-recompress
@@ -44,16 +41,13 @@ npm install --save imagemin-jpeg-recompress
 
 ## API
 
-### jpegRecompress([options])
+```javascript
+var jpegRecompress = require('imagemin-jpeg-recompress');
+```
 
-options: `Object`
+### jpegRecompress([*options*])
 
-#### options.progressive
-
-Type: `Boolean`  
-Default: `false`
-
-> Set progressive JPEG output
+*options*: `Object`
 
 #### options.strip
 
@@ -62,6 +56,13 @@ Default: `true`
 
 > Strip metadata
 
+#### options.accurate
+
+Type: `Boolean`  
+Default: `false`
+
+> Favor accuracy over speed
+
 #### options.quality
 
 Type: `String`  
@@ -69,12 +70,19 @@ Default: `'medium'`
 
 > Set a quality preset: `'low'`, `'medium'`, `'high'`, `'veryhigh'`
 
+#### options.method
+
+Type: `String`  
+Default: `'ssim'`
+
+> Set [comparison method](https://github.com/danielgtaylor/jpeg-archive#image-comparison-metrics) to one of `'mpe'`, `'ssim'`, `'ms-ssim'`, `'smallfry'`
+
 #### options.target
 
 Type: `Number`  
 Default: `0.9999`
 
-> Set target [SSIM](http://en.wikipedia.org/wiki/Structural_similarity)
+> Set target quality
 
 #### options.min
 
@@ -110,7 +118,6 @@ Type: `Number`
 Default: `1`
 
 > Set defish zoom
-
 
 ## License
 

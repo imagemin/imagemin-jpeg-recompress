@@ -39,7 +39,8 @@ describe('jpegRecompress()', () => {
       min: 95,
       max: 96,
       loops: 1,
-      progressive: true
+      accurate: true,
+      method: 'smallfry'
     }));
 
     return getBuffersPromise(imagemin, (srcBuf, destBuf) => {
@@ -71,7 +72,7 @@ describe('jpegRecompress()', () => {
     .src('test/fixture-broken.jpg')
     .use(jpegRecompress())
     .optimize(err => {
-      if (err.code !== 2) {
+      if (err.code === 1) {
         done();
         return;
       }

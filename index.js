@@ -3,7 +3,6 @@
 var ExecBuffer = require('exec-buffer');
 var isJpg = require('is-jpg');
 var jpegRecompress = require('jpeg-recompress-bin').path;
-var tempfile = require('tempfile');
 
 module.exports = function imageminJpegRecompress(opts = {}) {
   if (opts.strip === undefined) {
@@ -11,14 +10,11 @@ module.exports = function imageminJpegRecompress(opts = {}) {
   }
 
   return function(file, imagemin, callback) {
-    if (! isJpg(file.contents)) {
+    if (!isJpg(file.contents)) {
       return callback();
     }
 
     var exec = new ExecBuffer();
-
-    exec.src(tempfile('.jpg'));
-    exec.dest(tempfile('.jpg'));
 
     var args = [exec.src(), exec.dest()];
 
@@ -32,13 +28,16 @@ module.exports = function imageminJpegRecompress(opts = {}) {
       args.push('-n', opts.min);
     }
     if (opts.max !== undefined && 0 <= opts.max) {
-      args.push('-m', opts.max);
+      args.push('-x', opts.max);
     }
     if (opts.loops !== undefined && 0 <= opts.loops) {
       args.push('-l', opts.loops);
     }
-    if (opts.progressive) {
-      args.push('-p');
+    if (opts.accurate) {
+      args.push('-a');
+    }
+    if (typeof opts.method === 'string') {
+      args.push('-m', opts.method);
     }
     if (opts.strip) {
       args.push('-s');
@@ -54,9 +53,6 @@ module.exports = function imageminJpegRecompress(opts = {}) {
     .use(jpegRecompress, args)
     .run(file.contents, (err, buf) => {
       if (err) {
-        if (err.code === 2) {
-          return callback();
-        }
         return callback(err);
       }
 
