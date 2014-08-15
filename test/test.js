@@ -53,7 +53,7 @@ describe('jpegRecompress()', () => {
     let imagemin = new Imagemin();
 
     imagemin
-    .src('test/fixture-small.jpg')
+    .src('test/fixture-already-optimized.jpg')
     .use(jpegRecompress({
       target: 0.001,
       max: 1,
