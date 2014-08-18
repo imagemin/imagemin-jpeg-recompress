@@ -2,11 +2,11 @@
   "name": "imagemin-jpeg-recompress",
   "version": "0.5.0",
   "description": "jpeg-recompress imagemin plugin",
-  "repository": "shinnn/imagemin-jpeg-recompress",
+  "repository": "imagemin/imagemin-jpeg-recompress",
   "licenses": [
     {
       "type": "MIT",
-      "url": "https://github.com/shinnn/imagemin-jpeg-recompress/blob/master/LICENSE"
+      "url": "https://github.com/imagemin/imagemin-jpeg-recompress/blob/master/LICENSE"
     }
   ],
   "author": {
@@ -40,7 +40,7 @@
     "picture"
   ],
   "dependencies": {
-    "exec-buffer": "^0.1.1",
+    "exec-buffer": "^1.0.0",
     "is-jpg": "^1.0.0",
     "jpeg-recompress-bin": "^0.2.0"
   },

@@ -1,9 +1,9 @@
 # imagemin-jpeg-recompress 
 
-[![NPM version](https://badge.fury.io/js/imagemin-jpeg-recompress.svg)](http://badge.fury.io/js/imagemin-jpeg-recompress)
-[![Build Status](https://travis-ci.org/shinnn/imagemin-jpeg-recompress.svg?branch=master)](https://travis-ci.org/shinnn/imagemin-jpeg-recompress)
-[![Dependency Status](https://david-dm.org/shinnn/imagemin-jpeg-recompress.svg)](https://david-dm.org/shinnn/imagemin-jpeg-recompress)
-[![devDependency Status](https://david-dm.org/shinnn/imagemin-jpeg-recompress/dev-status.svg)](https://david-dm.org/shinnn/imagemin-jpeg-recompress#info=devDependencies)
+[![NPM version](https://badge.fury.io/js/imagemin-jpeg-recompress.svg)](https://www.npmjs.org/package/imagemin-jpeg-recompress)
+[![Build Status](https://travis-ci.org/imagemin/imagemin-jpeg-recompress.svg?branch=master)](https://travis-ci.org/imagemin/imagemin-jpeg-recompress)
+[![Dependency Status](https://david-dm.org/imagemin/imagemin-jpeg-recompress.svg)](https://david-dm.org/imagemin/imagemin-jpeg-recompress)
+[![devDependency Status](https://david-dm.org/imagemin/imagemin-jpeg-recompress/dev-status.svg)](https://david-dm.org/imagemin/imagemin-jpeg-recompress#info=devDependencies)
 
 [jpeg-recompress](https://github.com/danielgtaylor/jpeg-archive#jpeg-recompress) plugin for [imagemin](https://github.com/kevva/imagemin)
 
