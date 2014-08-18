@@ -29,7 +29,7 @@ module.exports = function (opts) {
 		}
 
 		if (opts.accurate) {
-		args.push('-a');
+			args.push('-a');
 		}
 
 		if (opts.quality) {
