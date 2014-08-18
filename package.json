@@ -1,14 +1,9 @@
 {
   "name": "imagemin-jpeg-recompress",
   "version": "0.5.0",
-  "description": "jpeg-recompress imagemin plugin",
-  "repository": "shinnn/imagemin-jpeg-recompress",
-  "licenses": [
-    {
-      "type": "MIT",
-      "url": "https://github.com/shinnn/imagemin-jpeg-recompress/blob/master/LICENSE"
-    }
-  ],
+  "description": "jpeg-recompress image-min plugin",
+  "license": "MIT",
+  "repository": "imagemin/imagemin-jpeg-recompress",
   "author": {
     "name": "Shinnosuke Watanabe",
     "url": "https://github.com/shinnn"
@@ -17,43 +12,28 @@
     "node": ">=0.10.0"
   },
   "scripts": {
-    "lint": "jshint *.js test/test.js --reporter node_modules/jshint-stylish/stylish",
-    "build-main": "traceur --out build/index-es5.js --script index.js",
-    "build-test": "traceur --experimental --out build/test-es5.js --script test/test.js",
-    "build": "${npm_package_scripts_build_main} & ${npm_package_scripts_build_test}",
-    "pretest": "${npm_package_scripts_lint} & rimraf build/* && npm run-script build",
-    "test": "mocha build/test-es5.js --reporter spec --timeout 10000"
+    "test": "node test/test.js"
   },
-  "main": "./build/index-es5.js",
+  "files": [
+    "index.js"
+  ],
   "keywords": [
     "compress",
-    "compression",
     "image",
     "imageminplugin",
     "img",
-    "jpg",
     "jpeg",
+    "jpg",
     "minify",
-    "minification",
-    "optimize",
-    "optimization",
-    "picture"
+    "optimize"
   ],
   "dependencies": {
-    "exec-buffer": "^0.1.1",
+    "exec-buffer": "^1.0.0",
     "is-jpg": "^1.0.0",
     "jpeg-recompress-bin": "^0.2.0"
   },
   "devDependencies": {
-    "bluebird": "^2.3.0",
-    "chalk": "^0.5.1",
-    "imagemin": "^1.0.0",
-    "jshint": "^2.5.3",
-    "jshint-stylish": "^0.4.0",
-    "maxmin": "^1.0.0",
-    "mocha": "^1.21.4",
-    "require-main": "^0.1.1",
-    "rimraf": "^2.2.8",
-    "traceur": "0.0.58"
+    "ava": "0.0.4",
+    "imagemin": "^1.0.0"
   }
 }

@@ -1,82 +1,55 @@
 'use strict';
 
-var assert = require('assert');
-var path = require('path');
-
-var Bluebird = require('bluebird');
-var chalk = require('chalk');
-var maxmin = require('maxmin');
-
+var fs = require('fs');
 var Imagemin = require('imagemin');
-Imagemin.prototype.optimizePromise = Bluebird.promisify(Imagemin.prototype.optimize);
+var jpegRecompress = require('../');
+var path = require('path');
+var test = require('ava');
 
-var jpegRecompress = require('require-main')();
+test('should optimize a JPG', function (t) {
+	t.plan(4);
 
-var readFile = Bluebird.promisify(require('fs').readFile);
+	var imagemin = new Imagemin()
+		.src(path.join(__dirname, 'fixtures/test.jpg'))
+		.use(jpegRecompress());
 
-function getBuffersPromise(imagemin, callback) {
-  return Bluebird.all([
-    readFile(imagemin.src()),
-    imagemin.optimizePromise()
-  ]).spread(function(srcBuf, file) {
-    callback(srcBuf, file.contents);
-  });
-}
+	imagemin.optimize(function (err, file) {
+		t.assert(!err);
 
-function printOptimizeResult(filePath, srcBuf, destBuf) {
-  var jpgname = path.basename(filePath);
-  console.log(`      ${chalk.cyan(jpgname)}: ${maxmin(srcBuf, destBuf, false)}`);
-}
+		fs.stat(imagemin.src(), function (err, stats) {
+			t.assert(!err);
+			t.assert(file.contents.length < stats.size);
+			t.assert(file.contents.length > 0);
+		});
+	});
+});
 
-describe('jpegRecompress()', () => {
-  it('should optimize a JPEG.', () => {
-    let imagemin = new Imagemin();
+test('should skip optimizing an already optimized JPG', function (t) {
+	t.plan(4);
 
-    imagemin
-    .src('test/fixture.jpg')
-    .use(jpegRecompress({
-      target: 0.999,
-      min: 95,
-      max: 96,
-      loops: 1,
-      accurate: true,
-      method: 'smallfry'
-    }));
+	var imagemin = new Imagemin()
+		.src(path.join(__dirname, 'fixtures/test-optimized.jpg'))
+		.use(jpegRecompress());
 
-    return getBuffersPromise(imagemin, (srcBuf, destBuf) => {
-      assert(destBuf.length < srcBuf.length);
-      assert(destBuf.length > 0);
-      printOptimizeResult(imagemin.src(), srcBuf, destBuf);
-    });
-  });
-  it('should pass an already optimized JPEG as it is.', () => {
-    let imagemin = new Imagemin();
+	imagemin.optimize(function (err, file) {
+		t.assert(!err);
 
-    imagemin
-    .src('test/fixture-already-optimized.jpg')
-    .use(jpegRecompress({
-      target: 0.001,
-      max: 1,
-      loops: 1,
-      defish: 0.7,
-      zoom: 10
-    }));
+		fs.stat(imagemin.src(), function (err, stats) {
+			t.assert(!err);
+			t.assert(file.contents.length === stats.size);
+			t.assert(file.contents.length > 0);
+		});
+	});
+});
 
-    return getBuffersPromise(imagemin, (srcBuf, destBuf) => {
-      assert.strictEqual(destBuf.length, srcBuf.length);
-      printOptimizeResult(imagemin.src(), srcBuf, destBuf);
-    });
-  });
-  it('should throw an error when the JPEG is corrupt.', done => {
-    new Imagemin()
-    .src('test/fixture-broken.jpg')
-    .use(jpegRecompress())
-    .optimize(err => {
-      if (err.code === 1) {
-        done();
-        return;
-      }
-      done(err);
-    });
-  });
+test('should throw error when a JPG is corrupt', function (t) {
+	t.plan(1);
+
+	var imagemin = new Imagemin()
+		.src(path.join(__dirname, 'fixtures/test-corrupt.jpg'))
+		.use(jpegRecompress());
+
+	imagemin.optimize(function (err) {
+		t.assert(err);
+	});
 });

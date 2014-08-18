@@ -1,7 +1,0 @@
-.editorconfig
-.jshintrc
-.travis.yml
-build/test-es5.js
-index.js
-example
-test
