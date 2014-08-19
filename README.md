@@ -1,6 +1,6 @@
 # imagemin-jpeg-recompress [![Build Status](https://travis-ci.org/imagemin/imagemin-jpeg-recompress.svg?branch=master)](https://travis-ci.org/imagemin/imagemin-jpeg-recompress)
 
-> jpeg-recompress image-min plugin
+> jpeg-recompress imagemin plugin
 
 
 ## Install
@@ -13,7 +13,7 @@ $ npm install --save imagemin-jpeg-recompress
 ## Usage
 
 ```js
-var Imagemin = require('image-min');
+var Imagemin = require('imagemin');
 var jpegRecompress = require('imagemin-jpeg-recompress');
 
 var imagemin = new Imagemin()
