@@ -28,7 +28,7 @@ test('should skip optimizing an already optimized JPG', function (t) {
 	t.plan(4);
 
 	var imagemin = new Imagemin()
-		.src(path.join(__dirname, 'fixtures/test-optimized.jpg'))
+		.src(path.join(__dirname, 'fixtures/test-smallest.jpg'))
 		.use(jpegRecompress());
 
 	imagemin.optimize(function (err, file) {
