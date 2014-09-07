@@ -1,6 +1,5 @@
 # imagemin-jpeg-recompress [![Build Status](http://img.shields.io/travis/imagemin/imagemin-jpeg-recompress.svg?style=flat)](https://travis-ci.org/imagemin/imagemin-jpeg-recompress) [![Build status](https://ci.appveyor.com/api/projects/status/gl9i2tudi4oggk0v)](https://ci.appveyor.com/project/ShinnosukeWatanabe/imagemin-jpeg-recompress)
 
-
 > jpeg-recompress imagemin plugin
 
 
