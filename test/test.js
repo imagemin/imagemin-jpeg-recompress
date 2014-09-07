@@ -43,7 +43,7 @@ test('should skip optimizing an already optimized JPG', function (t) {
 });
 
 test('should throw error when a JPG is corrupt', function (t) {
-	t.plan(1);
+	t.plan(2);
 
 	var imagemin = new Imagemin()
 		.src(path.join(__dirname, 'fixtures/test-corrupt.jpg'))
@@ -51,5 +51,6 @@ test('should throw error when a JPG is corrupt', function (t) {
 
 	imagemin.optimize(function (err) {
 		t.assert(err);
+		t.assert(/Corrupt JPEG data/.test(err.message));
 	});
 });
