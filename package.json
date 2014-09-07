@@ -28,9 +28,9 @@
     "optimize"
   ],
   "dependencies": {
-    "exec-buffer": "^1.0.0",
+    "exec-buffer": "1.0.0",
     "is-jpg": "^1.0.0",
-    "jpeg-recompress-bin": "^0.2.0"
+    "jpeg-recompress-bin": "^1.0.1"
   },
   "devDependencies": {
     "ava": "0.0.4",
