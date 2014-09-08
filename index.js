@@ -21,9 +21,9 @@ module.exports = function (opts) {
 		}
 
 		var args = ['-', '-', '-s'];
+		var err = '';
 		var ret = [];
 		var len = 0;
-		var msg;
 
 		if (opts.accurate) {
 			args.push('-a');
@@ -63,14 +63,14 @@ module.exports = function (opts) {
 
 		var cp = spawn(jpegRecompress, args);
 
-		cp.on('error', function(err) {
+		cp.on('error', function (err) {
 			cb(err);
 			return;
 		});
 
 		cp.stderr.setEncoding('utf8');
 		cp.stderr.on('data', function (data) {
-			msg = data;
+			err += data;
 		});
 
 		cp.stdout.on('data', function (data) {
@@ -80,7 +80,7 @@ module.exports = function (opts) {
 
 		cp.on('close', function (code) {
 			if (code) {
-				cb(new Error(msg));
+				cb(new Error(err));
 				return;
 			}
 
