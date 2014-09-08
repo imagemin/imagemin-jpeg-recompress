@@ -13,7 +13,6 @@ var jpegRecompress = require('jpeg-recompress-bin').path;
 
 module.exports = function (opts) {
 	opts = opts || {};
-	opts.strip = opts.strip || true;
 
 	return function (file, imagemin, cb) {
 		if (!isJpg(file.contents)) {
@@ -22,11 +21,7 @@ module.exports = function (opts) {
 		}
 
 		var exec = new ExecBuffer();
-		var args = [exec.src(), exec.dest()];
-
-		if (opts.strip) {
-			args.push('-s');
-		}
+		var args = [exec.src(), exec.dest(), '-s'];
 
 		if (opts.accurate) {
 			args.push('-a');

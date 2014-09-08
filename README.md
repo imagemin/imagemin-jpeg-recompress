@@ -27,13 +27,6 @@ imagemin.optimize();
 
 ## Options
 
-### strip
-
-Type: `Boolean`  
-Default: `true`
-
-Strip metadata.
-
 ### accurate
 
 Type: `Boolean`  
