@@ -1,8 +1,8 @@
 'use strict';
 
-var ExecBuffer = require('exec-buffer');
 var isJpg = require('is-jpg');
 var jpegRecompress = require('jpeg-recompress-bin').path;
+var spawn = require('child_process').spawn;
 
 /**
  * jpegrecompress image-min plugin
@@ -20,8 +20,10 @@ module.exports = function (opts) {
 			return;
 		}
 
-		var exec = new ExecBuffer();
-		var args = [exec.src(), exec.dest(), '-s'];
+		var args = ['-', '-', '-s'];
+		var ret = [];
+		var len = 0;
+		var msg;
 
 		if (opts.accurate) {
 			args.push('-a');
@@ -59,16 +61,33 @@ module.exports = function (opts) {
 			args.push('-z', opts.zoom);
 		}
 
-		exec
-			.use(jpegRecompress, args)
-			.run(file.contents, function (err, buf) {
-				if (err) {
-					cb(err);
-					return;
-				}
+		var cp = spawn(jpegRecompress, args);
 
-				file.contents = buf;
-				cb();
-			});
+		cp.on('error', function(err) {
+			cb(err);
+			return;
+		});
+
+		cp.stderr.setEncoding('utf8');
+		cp.stderr.on('data', function (data) {
+			msg = data;
+		});
+
+		cp.stdout.on('data', function (data) {
+			ret.push(data);
+			len += data.length;
+		});
+
+		cp.on('close', function (code) {
+			if (code) {
+				cb(new Error(msg));
+				return;
+			}
+
+			file.contents = Buffer.concat(ret, len);
+			cb();
+		});
+
+		cp.stdin.end(file.contents);
 	};
 };
