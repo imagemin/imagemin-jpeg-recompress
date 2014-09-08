@@ -25,7 +25,7 @@ test('optimize a JPG', function (t) {
 	});
 });
 
-test('should skip optimizing an already optimized JPG', function (t) {
+test('skip optimizing an already optimized JPG', function (t) {
 	t.plan(4);
 
 	var imagemin = new Imagemin()
@@ -38,7 +38,7 @@ test('should skip optimizing an already optimized JPG', function (t) {
 		fs.stat(imagemin.src(), function (err, stats) {
 			t.assert(!err);
 			t.assert(file.contents.length === stats.size);
-			t.assert(file.contents.length > 0);
+			t.assert(isJpg(file.contents));
 		});
 	});
 });
