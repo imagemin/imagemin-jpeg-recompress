@@ -29,10 +29,12 @@
   ],
   "dependencies": {
     "is-jpg": "^1.0.0",
-    "jpeg-recompress-bin": "^1.0.1"
+    "jpeg-recompress-bin": "^1.0.1",
+    "through2": "^0.6.1"
   },
   "devDependencies": {
     "ava": "0.0.4",
-    "imagemin": "^1.0.0"
+    "buffer-equal": "0.0.1",
+    "vinyl": "^0.4.3"
   }
 }
