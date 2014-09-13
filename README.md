@@ -17,11 +17,30 @@ var Imagemin = require('imagemin');
 var jpegRecompress = require('imagemin-jpeg-recompress');
 
 var imagemin = new Imagemin()
-  .src('foo.jpg')
-  .dest('foo-optimized.jpg')
-  .use(jpegRecompress({ loops: 3 }));
+	.src('images/*.jpg')
+	.dest('build/images')
+	.use(jpegRecompress({ loops: 3 }));
 
-imagemin.optimize();
+imagemin.run(function (err, files) {
+	if (err) {
+		throw err;
+	}
+
+	console.log('Files optimized successfully!'); 
+});
+```
+
+You can also use this plugin with [gulp](http://gulpjs.com):
+
+```js
+var gulp = require('gulp');
+var jpegRecompress = require('imagemin-jpeg-recompress');
+
+gulp.task('default', function () {
+	return gulp.src('images/*.jpg')
+		.pipe(jpegRecompress({ loops: 3 }))
+		.pipe(gulp.dest('build/images'));
+});
 ```
 
 
