@@ -19,10 +19,12 @@
   ],
   "keywords": [
     "compress",
+    "gulpplugin",
     "image",
     "imageminplugin",
     "img",
     "jpeg",
+    "jpeg-recompress",
     "jpg",
     "minify",
     "optimize"
