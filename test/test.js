@@ -5,6 +5,7 @@ var isJpg = require('is-jpg');
 var jpegRecompress = require('../');
 var path = require('path');
 var read = require('vinyl-file').read;
+var smallestJpeg = require('vinyl-smallest-jpeg');
 var test = require('ava');
 
 test('optimize a JPG', function (t) {
@@ -43,19 +44,16 @@ test('skip optimizing a non-JPG file', function (t) {
 });
 
 test('skip optimizing an already optimized JPG', function (t) {
-	t.plan(2);
+	t.plan(1);
 
-	read(path.join(__dirname, 'fixtures/test-smallest.jpg'), function (err, file) {
-		t.assert(!err);
+	var file = smallestJpeg();
+	var stream = jpegRecompress();
 
-		var stream = jpegRecompress();
-
-		stream.on('data', function (data) {
-			t.assert(bufferEqual(data.contents, file.contents));
-		});
-
-		stream.end(file);
+	stream.on('data', function (data) {
+		t.assert(bufferEqual(data.contents, file.contents));
 	});
+
+	stream.end(file);
 });
 
 test('throw error when a JPG is corrupt', function (t) {
