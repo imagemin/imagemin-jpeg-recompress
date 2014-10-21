@@ -12,7 +12,7 @@ test('optimize a JPG', function (t) {
 	t.plan(2);
 
 	read(path.join(__dirname, 'fixtures/test.jpg'), function (err, file) {
-		t.assert(!err);
+		t.assert(!err, err);
 
 		var stream = jpegRecompress();
 		var size = file.contents.length;
@@ -32,7 +32,7 @@ test('optimize a JPG using ctor', function (t) {
 	var JpegRecompress = jpegRecompress.ctor();
 
 	read(path.join(__dirname, 'fixtures/test.jpg'), function (err, file) {
-		t.assert(!err);
+		t.assert(!err, err);
 
 		var stream = new JpegRecompress();
 		var size = file.contents.length;
@@ -50,7 +50,7 @@ test('skip optimizing a non-JPG file', function (t) {
 	t.plan(2);
 
 	read(__filename, function (err, file) {
-		t.assert(!err);
+		t.assert(!err, err);
 
 		var stream = jpegRecompress();
 		var contents = file.contents;
@@ -80,7 +80,7 @@ test('throw error when a JPG is corrupt', function (t) {
 	t.plan(3);
 
 	read(path.join(__dirname, 'fixtures/test-corrupt.jpg'), function (err, file) {
-		t.assert(!err);
+		t.assert(!err, err);
 
 		var stream = jpegRecompress();
 
