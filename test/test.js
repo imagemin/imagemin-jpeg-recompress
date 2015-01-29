@@ -47,7 +47,7 @@ test('skip optimizing an already optimized JPG', function (t) {
 	t.plan(1);
 
 	var file = smallestJpeg();
-	var stream = jpegRecompress()();
+	var stream = jpegRecompress({ method: 'ms-ssim' })();
 
 	stream.on('data', function (data) {
 		t.assert(bufferEqual(data.contents, file.contents));

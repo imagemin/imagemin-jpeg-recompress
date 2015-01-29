@@ -91,6 +91,11 @@ module.exports = function (opts) {
 
 		cp.on('close', function (code) {
 			if (code) {
+				if (/Output file is larger than input, aborting\!/.test(err)) {
+					cb(null, file);
+					return;
+				}
+
 				cb(new Error(err));
 				return;
 			}
