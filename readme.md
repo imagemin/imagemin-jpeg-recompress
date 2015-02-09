@@ -19,7 +19,7 @@ var jpegRecompress = require('imagemin-jpeg-recompress');
 var imagemin = new Imagemin()
 	.src('images/*.jpg')
 	.dest('build/images')
-	.use(jpegRecompress({ loops: 3 }));
+	.use(jpegRecompress({loops: 3}));
 
 imagemin.run(function (err, files) {
 	if (err) {
@@ -38,7 +38,7 @@ var jpegRecompress = require('imagemin-jpeg-recompress');
 
 gulp.task('default', function () {
 	return gulp.src('images/*.jpg')
-		.pipe(jpegRecompress({ loops: 3 })())
+		.pipe(jpegRecompress({loops: 3})())
 		.pipe(gulp.dest('build/images'));
 });
 ```
