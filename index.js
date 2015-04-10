@@ -1,8 +1,8 @@
 'use strict';
 
+var spawn = require('child_process').spawn;
 var isJpg = require('is-jpg');
 var jpegRecompress = require('jpeg-recompress-bin').path;
-var spawn = require('child_process').spawn;
 var through = require('through2');
 
 module.exports = function (opts) {
@@ -67,11 +67,6 @@ module.exports = function (opts) {
 
 		var cp = spawn(jpegRecompress, args);
 
-		cp.on('error', function (err) {
-			cb(err);
-			return;
-		});
-
 		cp.stderr.setEncoding('utf8');
 		cp.stderr.on('data', function (data) {
 			err += data;
@@ -82,6 +77,7 @@ module.exports = function (opts) {
 			len += data.length;
 		});
 
+		cp.on('error', cb);
 		cp.on('close', function (code) {
 			if (code) {
 				if (/Output file is larger than input, aborting\!/.test(err)) {

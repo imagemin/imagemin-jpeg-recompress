@@ -5,7 +5,7 @@
 
 ## Install
 
-```bash
+```
 $ npm install --save imagemin-jpeg-recompress
 ```
 
@@ -14,98 +14,93 @@ $ npm install --save imagemin-jpeg-recompress
 
 ```js
 var Imagemin = require('imagemin');
-var jpegRecompress = require('imagemin-jpeg-recompress');
+var imageminJpegRecompress = require('imagemin-jpeg-recompress');
 
-var imagemin = new Imagemin()
+new Imagemin()
 	.src('images/*.jpg')
 	.dest('build/images')
-	.use(jpegRecompress({loops: 3}));
-
-imagemin.run(function (err, files) {
-	if (err) {
-		throw err;
-	}
-
-	console.log('Files optimized successfully!'); 
-});
+	.use(imageminJpegRecompress({loops: 3}))
+	.run();
 ```
 
 You can also use this plugin with [gulp](http://gulpjs.com):
 
 ```js
 var gulp = require('gulp');
-var jpegRecompress = require('imagemin-jpeg-recompress');
+var imageminJpegRecompress = require('imagemin-jpeg-recompress');
 
 gulp.task('default', function () {
 	return gulp.src('images/*.jpg')
-		.pipe(jpegRecompress({loops: 3})())
+		.pipe(imageminJpegRecompress({loops: 3})())
 		.pipe(gulp.dest('build/images'));
 });
 ```
 
 
-## Options
+## API
 
-### accurate
+### imageminJpegRecompress(options)
 
-Type: `Boolean`  
+#### options.accurate
+
+Type: `boolean`  
 Default: `false`
 
 Favor accuracy over speed.
 
-### quality
+#### options.quality
 
-Type: `String`  
+Type: `string`  
 Default: `medium`
 
 Set a quality preset. Available presets: `low`, `medium`, `high` and `veryhigh`.
 
-### method
+#### options.method
 
-Type: `String`  
+Type: `string`  
 Default: `ssim`
 
 Set [comparison method](https://github.com/danielgtaylor/jpeg-archive#image-comparison-metrics). 
 Available methods: `mpe`, `ssim`, `ms-ssim` and `smallfry`.
 
-### target
+#### options.target
 
-Type: `Number`  
+Type: `number`  
 Default: `0.9999`
 
 Set target quality.
 
-### min
+#### options.min
 
-Type: `Number`  
+Type: `number`  
 Default: `40`
 
 Minimum JPEG quality.
 
-### max
+#### options.max
 
-Type: `Number`  
+Type: `number`  
 Default: `95`
 
 Maximum JPEG quality.
 
-### loops
+#### options.loops
 
-Type: `Number`  
+Type: `number`  
 Default: `6`
 
 Set the number of attempts.
 
-### defish
+#### options.defish
 
-Type: `Number`  
+Type: `number`  
 Default: `0`
 
 Set defish strength.
 
-### zoom
+#### options.zoom
 
-Type: `Number`  
+Type: `number`  
 Default: `1`
 
 Set defish zoom.
