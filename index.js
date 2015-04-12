@@ -77,7 +77,12 @@ module.exports = function (opts) {
 			len += data.length;
 		});
 
-		cp.on('error', cb);
+		cp.on('error', function (err) {
+			err.fileName = file.path;
+			cb(err);
+			return;
+		});
+
 		cp.on('close', function (code) {
 			if (code) {
 				if (/Output file is larger than input, aborting\!/.test(err)) {
@@ -85,7 +90,10 @@ module.exports = function (opts) {
 					return;
 				}
 
-				cb(new Error(err));
+				err = new Error(err);
+				err.fileName = file.path;
+
+				cb(err);
 				return;
 			}
 
