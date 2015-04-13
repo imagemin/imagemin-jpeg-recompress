@@ -2,7 +2,7 @@
 
 var spawn = require('child_process').spawn;
 var isJpg = require('is-jpg');
-var jpegRecompress = require('jpeg-recompress-bin').path;
+var jpegRecompress = require('jpeg-recompress-bin');
 var through = require('through2');
 
 module.exports = function (opts) {
@@ -63,6 +63,14 @@ module.exports = function (opts) {
 
 		if (opts.zoom) {
 			args.push('-z', opts.zoom);
+		}
+
+		if (opts.progressive === false) {
+			args.push('-p');
+		}
+
+		if (opts.subsample) {
+			args.push('-S', opts.subsample);
 		}
 
 		var cp = spawn(jpegRecompress, args);

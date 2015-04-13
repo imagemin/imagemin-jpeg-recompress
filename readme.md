@@ -1,4 +1,4 @@
-# imagemin-jpeg-recompress [![Build Status](http://img.shields.io/travis/imagemin/imagemin-jpeg-recompress.svg?style=flat)](https://travis-ci.org/imagemin/imagemin-jpeg-recompress) [![Build status](https://ci.appveyor.com/api/projects/status/gl9i2tudi4oggk0v?svg=true)](https://ci.appveyor.com/project/ShinnosukeWatanabe/imagemin-jpeg-recompress)
+# imagemin-jpeg-recompress [![Build Status](https://travis-ci.org/imagemin/imagemin-jpeg-recompress.svg?branch=master)](https://travis-ci.org/imagemin/imagemin-jpeg-recompress) [![Build status](https://ci.appveyor.com/api/projects/status/gl9i2tudi4oggk0v?svg=true)](https://ci.appveyor.com/project/ShinnosukeWatanabe/imagemin-jpeg-recompress)
 
 > jpeg-recompress imagemin plugin
 
@@ -60,8 +60,7 @@ Set a quality preset. Available presets: `low`, `medium`, `high` and `veryhigh`.
 Type: `string`  
 Default: `ssim`
 
-Set [comparison method](https://github.com/danielgtaylor/jpeg-archive#image-comparison-metrics). 
-Available methods: `mpe`, `ssim`, `ms-ssim` and `smallfry`.
+Set [comparison method](https://github.com/danielgtaylor/jpeg-archive#image-comparison-metrics). Available methods: `mpe`, `ssim`, `ms-ssim` and `smallfry`.
 
 #### options.target
 
@@ -98,12 +97,19 @@ Default: `0`
 
 Set defish strength.
 
-#### options.zoom
+#### options.progressive
 
-Type: `number`  
-Default: `1`
+Type: `boolean`  
+Default: `true`
 
-Set defish zoom.
+Enable progressive encoding.
+
+#### options.subsample
+
+Type: `string`  
+Default: `default`
+
+Set subsampling method. Available values: `default`, `disable`.
 
 
 ## License
