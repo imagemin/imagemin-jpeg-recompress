@@ -1,6 +1,6 @@
 {
   "name": "imagemin-jpeg-recompress",
-  "version": "4.1.0",
+  "version": "4.2.0",
   "description": "jpeg-recompress imagemin plugin",
   "license": "MIT",
   "repository": "imagemin/imagemin-jpeg-recompress",
