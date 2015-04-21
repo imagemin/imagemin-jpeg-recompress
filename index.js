@@ -24,7 +24,7 @@ module.exports = function (opts) {
 			return;
 		}
 
-		var args = ['-', '-', '-s'];
+		var args = ['-', '-', '-s', '--quiet'];
 		var err = '';
 		var ret = [];
 		var len = 0;
