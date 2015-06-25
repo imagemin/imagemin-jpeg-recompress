@@ -11,7 +11,7 @@ var file = vinylSmallestJpeg();
 var jpegRecompress = require('../');
 
 test('optimize a JPG', function (t) {
-	t.plan(2);
+	t.plan(4);
 
 	read(path.join(__dirname, 'fixtures/test.jpg'), function (err, file) {
 		t.assert(!err, err);
