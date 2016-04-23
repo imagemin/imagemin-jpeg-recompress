@@ -9,6 +9,7 @@ var test = require('ava');
 var vinylSmallestJpeg = require('vinyl-smallest-jpeg');
 var file = vinylSmallestJpeg();
 var jpegRecompress = require('../');
+var ExifImage = require('exif').ExifImage;
 
 test('optimize a JPG', function (t) {
 	t.plan(4);
@@ -29,7 +30,7 @@ test('optimize a JPG', function (t) {
 	});
 });
 
-test('support jpeg-recompress options', function (t) {
+test('support jpeg-recompress progress option', function (t) {
 	t.plan(2);
 
 	read(path.join(__dirname, 'fixtures/test.jpg'), function (err, file) {
@@ -39,6 +40,24 @@ test('support jpeg-recompress options', function (t) {
 
 		stream.on('data', function (data) {
 			t.assert(!isProgressive.buffer(data.contents));
+		});
+
+		stream.end(file);
+	});
+});
+
+test('support jpeg-recompress strip option', function (t) {
+	t.plan(2);
+
+	read(path.join(__dirname, 'fixtures/test.jpg'), function (err, file) {
+		t.assert(!err, err);
+
+		var stream = jpegRecompress({strip: false})();
+
+		stream.on('data', function (data) {
+			new ExifImage(data.contents, function (error, exifData) {
+				t.assert(exifData.image.Software === "imagemin-jpeg-recompress");
+			});
 		});
 
 		stream.end(file);
