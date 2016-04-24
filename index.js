@@ -24,7 +24,7 @@ module.exports = function (opts) {
 			return;
 		}
 
-		var args = ['-', '-', '-s', '--quiet'];
+		var args = ['-', '-', '--quiet'];
 		var err = '';
 		var ret = [];
 		var len = 0;
@@ -71,6 +71,10 @@ module.exports = function (opts) {
 
 		if (opts.subsample) {
 			args.push('-S', opts.subsample);
+		}
+
+		if (opts.strip !== false) {
+			args.push('-s', opts.strip);
 		}
 
 		var cp = spawn(jpegRecompress, args);
