@@ -112,6 +112,14 @@ Default: `default`
 Set subsampling method. Available values: `default`, `disable`.
 
 
+#### options.strip
+
+Type: `boolean`  
+Default: `true`
+
+Strips metadata, such as EXIF data.
+
+
 ## License
 
 MIT © [imagemin](https://github.com/imagemin)

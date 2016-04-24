@@ -73,7 +73,7 @@ module.exports = function (opts) {
 			args.push('-S', opts.subsample);
 		}
 
-		if (opts.strip) {
+		if (opts.strip !== false) {
 			args.push('-s', opts.strip);
 		}
 

@@ -64,6 +64,24 @@ test('support jpeg-recompress strip option', function (t) {
 	});
 });
 
+test('strip metadata by default', function (t) {
+	t.plan(2);
+
+	read(path.join(__dirname, 'fixtures/test.jpg'), function (err, file) {
+		t.assert(!err, err);
+
+		var stream = jpegRecompress()();
+
+		stream.on('data', function (data) {
+			new ExifImage(data.contents, function (error, exifData) {
+				t.assert(!exifData);
+			});
+		});
+
+		stream.end(file);
+	});
+});
+
 test('skip optimizing a non-JPG file', function (t) {
 	t.plan(2);
 
