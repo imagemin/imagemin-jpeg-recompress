@@ -16,7 +16,11 @@ $ npm install --save imagemin-jpeg-recompress
 const imagemin = require('imagemin');
 const imageminJpegRecompress = require('imagemin-jpeg-recompress');
 
-imagemin(['images/*.jpg'], 'build/images', {use: [imageminJpegRecompress()]}).then(() => {
+imagemin(['images/*.jpg'], 'build/images', {
+	plugins: [
+		imageminJpegRecompress()
+	]
+}).then(() => {
 	console.log('Images optimized');
 });
 ```
@@ -30,70 +34,70 @@ imagemin(['images/*.jpg'], 'build/images', {use: [imageminJpegRecompress()]}).th
 
 ##### accurate
 
-Type: `boolean`  
+Type: `boolean`<br>
 Default: `false`
 
 Favor accuracy over speed.
 
 ##### quality
 
-Type: `string`  
+Type: `string`<br>
 Default: `medium`
 
 Set a quality preset. Available presets: `low`, `medium`, `high` and `veryhigh`.
 
 ##### method
 
-Type: `string`  
+Type: `string`<br>
 Default: `ssim`
 
 Set [comparison method](https://github.com/danielgtaylor/jpeg-archive#image-comparison-metrics). Available methods: `mpe`, `ssim`, `ms-ssim` and `smallfry`.
 
 ##### target
 
-Type: `number`  
+Type: `number`<br>
 Default: `0.9999`
 
 Set target quality.
 
 ##### min
 
-Type: `number`  
+Type: `number`<br>
 Default: `40`
 
 Minimum JPEG quality.
 
 ##### max
 
-Type: `number`  
+Type: `number`<br>
 Default: `95`
 
 Maximum JPEG quality.
 
 ##### loops
 
-Type: `number`  
+Type: `number`<br>
 Default: `6`
 
 Set the number of attempts.
 
 ##### defish
 
-Type: `number`  
+Type: `number`<br>
 Default: `0`
 
 Set defish strength.
 
 ##### progressive
 
-Type: `boolean`  
+Type: `boolean`<br>
 Default: `true`
 
 Enable progressive encoding.
 
 ##### subsample
 
-Type: `string`  
+Type: `string`<br>
 Default: `default`
 
 Set subsampling method. Available values: `default`, `disable`.
