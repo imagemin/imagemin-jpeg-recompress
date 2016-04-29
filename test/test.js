@@ -1,93 +1,50 @@
 'use strict';
-
+var fs = require('fs');
 var path = require('path');
 var bufferEqual = require('buffer-equal');
 var isJpg = require('is-jpg');
 var isProgressive = require('is-progressive');
-var read = require('vinyl-file').read;
 var test = require('ava');
-var vinylSmallestJpeg = require('vinyl-smallest-jpeg');
-var file = vinylSmallestJpeg();
-var jpegRecompress = require('../');
+var imageminJpegRecompress = require('../');
 
 test('optimize a JPG', function (t) {
-	t.plan(4);
+	t.plan(3);
 
-	read(path.join(__dirname, 'fixtures/test.jpg'), function (err, file) {
-		t.assert(!err, err);
+	var buf = fs.readFileSync(path.join(__dirname, 'fixtures/test.jpg'));
 
-		var stream = jpegRecompress()();
-		var size = file.contents.length;
-
-		stream.on('data', function (data) {
-			t.assert(data.contents.length < size, data.contents.length);
-			t.assert(isJpg(data.contents));
-			t.assert(isProgressive.buffer(data.contents));
-		});
-
-		stream.end(file);
+	imageminJpegRecompress()(buf).then(function (data) {
+		t.assert(data.length < buf.length, data.length);
+		t.assert(isJpg(data));
+		t.assert(isProgressive.buffer(data));
 	});
 });
 
 test('support jpeg-recompress options', function (t) {
-	t.plan(2);
+	t.plan(1);
 
-	read(path.join(__dirname, 'fixtures/test.jpg'), function (err, file) {
-		t.assert(!err, err);
+	var buf = fs.readFileSync(path.join(__dirname, 'fixtures/test.jpg'));
 
-		var stream = jpegRecompress({progressive: false})();
-
-		stream.on('data', function (data) {
-			t.assert(!isProgressive.buffer(data.contents));
-		});
-
-		stream.end(file);
+	imageminJpegRecompress({progressive: false})(buf).then(function (data) {
+		t.assert(!isProgressive.buffer(data));
 	});
 });
 
 test('skip optimizing a non-JPG file', function (t) {
-	t.plan(2);
-
-	read(__filename, function (err, file) {
-		t.assert(!err, err);
-
-		var stream = jpegRecompress()();
-		var contents = file.contents;
-
-		stream.on('data', function (data) {
-			t.assert(bufferEqual(data.contents, contents));
-		});
-
-		stream.end(file);
-	});
-});
-
-test('skip optimizing an already optimized JPG', function (t) {
 	t.plan(1);
 
-	var stream = jpegRecompress({method: 'ms-ssim'})();
+	var buf = fs.readFileSync(__filename);
 
-	stream.on('data', function (data) {
-		t.assert(bufferEqual(data.contents, file.contents));
+	imageminJpegRecompress()(buf).then(function (data) {
+		t.assert(bufferEqual(data, buf));
 	});
-
-	stream.end(file);
 });
 
 test('throw error when a JPG is corrupt', function (t) {
-	t.plan(4);
+	t.plan(1);
 
-	read(path.join(__dirname, 'fixtures/test-corrupt.jpg'), function (err, file) {
-		t.assert(!err, err);
+	var buf = fs.readFileSync(path.join(__dirname, 'fixtures/test-corrupt.jpg'));
 
-		var stream = jpegRecompress()();
-
-		stream.on('error', function (err) {
-			t.assert(err, err);
-			t.assert(path.basename(err.fileName) === 'test-corrupt.jpg', err.fileName);
-			t.assert(/Corrupt JPEG data/.test(err.message), err.message);
-		});
-
-		stream.end(file);
+	imageminJpegRecompress()(buf).catch(function (err) {
+		t.assert(/Corrupt JPEG data/.test(err.message), err.message);
 	});
 });

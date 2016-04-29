@@ -13,103 +13,96 @@ $ npm install --save imagemin-jpeg-recompress
 ## Usage
 
 ```js
-var Imagemin = require('imagemin');
-var imageminJpegRecompress = require('imagemin-jpeg-recompress');
+const imagemin = require('imagemin');
+const imageminJpegRecompress = require('imagemin-jpeg-recompress');
 
-new Imagemin()
-	.src('images/*.jpg')
-	.dest('build/images')
-	.use(imageminJpegRecompress({loops: 3}))
-	.run();
-```
-
-You can also use this plugin with [gulp](http://gulpjs.com):
-
-```js
-var gulp = require('gulp');
-var imageminJpegRecompress = require('imagemin-jpeg-recompress');
-
-gulp.task('default', function () {
-	return gulp.src('images/*.jpg')
-		.pipe(imageminJpegRecompress({loops: 3})())
-		.pipe(gulp.dest('build/images'));
+imagemin(['images/*.jpg'], 'build/images', {use: [imageminJpegRecompress()]}).then(() => {
+	console.log('Images optimized');
 });
 ```
 
 
 ## API
 
-### imageminJpegRecompress(options)
+### imageminJpegRecompress([options])(buffer)
 
-#### options.accurate
+#### options
+
+##### accurate
 
 Type: `boolean`  
 Default: `false`
 
 Favor accuracy over speed.
 
-#### options.quality
+##### quality
 
 Type: `string`  
 Default: `medium`
 
 Set a quality preset. Available presets: `low`, `medium`, `high` and `veryhigh`.
 
-#### options.method
+##### method
 
 Type: `string`  
 Default: `ssim`
 
 Set [comparison method](https://github.com/danielgtaylor/jpeg-archive#image-comparison-metrics). Available methods: `mpe`, `ssim`, `ms-ssim` and `smallfry`.
 
-#### options.target
+##### target
 
 Type: `number`  
 Default: `0.9999`
 
 Set target quality.
 
-#### options.min
+##### min
 
 Type: `number`  
 Default: `40`
 
 Minimum JPEG quality.
 
-#### options.max
+##### max
 
 Type: `number`  
 Default: `95`
 
 Maximum JPEG quality.
 
-#### options.loops
+##### loops
 
 Type: `number`  
 Default: `6`
 
 Set the number of attempts.
 
-#### options.defish
+##### defish
 
 Type: `number`  
 Default: `0`
 
 Set defish strength.
 
-#### options.progressive
+##### progressive
 
 Type: `boolean`  
 Default: `true`
 
 Enable progressive encoding.
 
-#### options.subsample
+##### subsample
 
 Type: `string`  
 Default: `default`
 
 Set subsampling method. Available values: `default`, `disable`.
+
+#### buffer
+
+Type: `buffer`
+
+Buffer to optimize.
 
 
 ## License
