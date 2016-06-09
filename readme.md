@@ -102,6 +102,13 @@ Default: `default`
 
 Set subsampling method. Available values: `default`, `disable`.
 
+##### strip
+
+Type: `boolean`<br>
+Default: `true`
+
+Strips metadata, such as EXIF data.
+
 #### buffer
 
 Type: `buffer`

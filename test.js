@@ -4,6 +4,7 @@ import isJpg from 'is-jpg';
 import isProgressive from 'is-progressive';
 import pify from 'pify';
 import test from 'ava';
+import {ExifImage as exifImage} from 'exif';
 import m from './';
 
 const fsP = pify(fs);
@@ -17,11 +18,25 @@ test('optimize a JPG', async t => {
 	t.true(isProgressive.buffer(data));
 });
 
-test('support jpeg-recompress options', async t => {
+test('progressive option', async t => {
 	const buf = await fsP.readFile(path.join(__dirname, 'fixture.jpg'));
 	const data = await m({progressive: false})(buf);
 
 	t.false(isProgressive.buffer(data));
+});
+
+test('strip option', async t => {
+	const buf = await fsP.readFile(path.join(__dirname, 'fixture.jpg'));
+	const data = await m({strip: false})(buf);
+
+	t.is((await pify(exifImage)(data)).image.Software, 'imagemin-jpeg-recompress');
+});
+
+test('strip metadata by default', async t => {
+	const buf = await fsP.readFile(path.join(__dirname, 'fixture.jpg'));
+	const data = await m()(buf);
+
+	t.throws(pify(exifImage)(data), 'No Exif segment found in the given image.');
 });
 
 test('skip optimizing a non-JPG file', async t => {
