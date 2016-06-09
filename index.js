@@ -14,7 +14,7 @@ module.exports = opts => buf => {
 		return Promise.resolve(buf);
 	}
 
-	const args = ['--strip', '--quiet'];
+	const args = ['--quiet'];
 
 	if (opts.accurate) {
 		args.push('--accurate');
@@ -58,6 +58,10 @@ module.exports = opts => buf => {
 
 	if (opts.subsample) {
 		args.push('--subsample', opts.subsample);
+	}
+
+	if (opts.strip !== false) {
+		args.push('--strip');
 	}
 
 	args.push(execBuffer.input, execBuffer.output);

@@ -108,6 +108,13 @@ Type: `buffer`
 
 Buffer to optimize.
 
+#### options.strip
+
+Type: `boolean`  
+Default: `true`
+
+Strips metadata, such as EXIF data.
+
 
 ## License
 
