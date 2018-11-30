@@ -5,7 +5,7 @@ import isProgressive from 'is-progressive';
 import pify from 'pify';
 import test from 'ava';
 import {ExifImage as exifImage} from 'exif';
-import m from './';
+import m from '.';
 
 const fsP = pify(fs);
 
