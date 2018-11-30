@@ -35,8 +35,8 @@ test('strip option', async t => {
 test('strip metadata by default', async t => {
 	const buf = await fsP.readFile(path.join(__dirname, 'fixture.jpg'));
 	const data = await m()(buf);
-
-	t.throws(await pify(exifImage)(data), 'No Exif segment found in the given image.');
+	const error = await t.throws(pify(exifImage)(data));
+	t.is(error.message, 'No Exif segment found in the given image.');
 });
 
 test('skip optimizing a non-JPG file', async t => {
