@@ -42,15 +42,15 @@
   ],
   "dependencies": {
     "exec-buffer": "^3.0.0",
-    "is-jpg": "^1.0.0",
+    "is-jpg": "^2.0.0",
     "jpeg-recompress-bin": "^4.0.0"
   },
   "devDependencies": {
-    "ava": "*",
+    "ava": "^0.25.0",
     "exif": "^0.6.0",
-    "is-progressive": "^1.0.1",
-    "pify": "^2.3.0",
-    "xo": "*"
+    "is-progressive": "^3.0.0",
+    "pify": "^4.0.1",
+    "xo": "^0.23.0"
   },
   "xo": {
     "esnext": true
