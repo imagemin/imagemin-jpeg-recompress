@@ -5,7 +5,7 @@ import isProgressive from 'is-progressive';
 import pify from 'pify';
 import test from 'ava';
 import {ExifImage as exifImage} from 'exif';
-import m from './';
+import m from '.';
 
 const fsP = pify(fs);
 
@@ -35,8 +35,8 @@ test('strip option', async t => {
 test('strip metadata by default', async t => {
 	const buf = await fsP.readFile(path.join(__dirname, 'fixture.jpg'));
 	const data = await m()(buf);
-
-	t.throws(pify(exifImage)(data), 'No Exif segment found in the given image.');
+	const error = await t.throws(pify(exifImage)(data));
+	t.is(error.message, 'No Exif segment found in the given image.');
 });
 
 test('skip optimizing a non-JPG file', async t => {
@@ -48,5 +48,6 @@ test('skip optimizing a non-JPG file', async t => {
 
 test('throw error when a JPG is corrupt', async t => {
 	const buf = await fsP.readFile(path.join(__dirname, 'fixture-corrupt.jpg'));
-	t.throws(m()(buf), /Corrupt JPEG data/);
+	const error = await t.throws(m()(buf));
+	t.regex(error.message, /Corrupt JPEG data/);
 });

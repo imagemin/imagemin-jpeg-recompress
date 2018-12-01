@@ -21,7 +21,7 @@
     }
   ],
   "engines": {
-    "node": ">=4"
+    "node": ">=6"
   },
   "scripts": {
     "test": "xo && ava"
@@ -43,7 +43,7 @@
   "dependencies": {
     "exec-buffer": "^3.0.0",
     "is-jpg": "^1.0.0",
-    "jpeg-recompress-bin": "^3.0.1"
+    "jpeg-recompress-bin": "^4.0.0"
   },
   "devDependencies": {
     "ava": "*",
