@@ -1,16 +1,17 @@
-import fs from 'fs';
-import path from 'path';
-import isJpg from 'is-jpg';
-import isProgressive from 'is-progressive';
-import pify from 'pify';
-import test from 'ava';
-import {ExifImage as exifImage} from 'exif';
-import m from '.';
+const {promisify} = require('util');
+const fs = require('fs');
+const path = require('path');
+const isJpg = require('is-jpg');
+const isProgressive = require('is-progressive');
+const test = require('ava');
+const {ExifImage} = require('exif');
+const m = require('.');
 
-const fsP = pify(fs);
+const readFile = promisify(fs.readFile);
+const exifImageAsync = promisify(ExifImage);
 
 test('optimize a JPG', async t => {
-	const buf = await fsP.readFile(path.join(__dirname, 'fixture.jpg'));
+	const buf = await readFile(path.join(__dirname, 'fixture.jpg'));
 	const data = await m()(buf);
 
 	t.true(data.length < buf.length);
@@ -19,35 +20,37 @@ test('optimize a JPG', async t => {
 });
 
 test('progressive option', async t => {
-	const buf = await fsP.readFile(path.join(__dirname, 'fixture.jpg'));
+	const buf = await readFile(path.join(__dirname, 'fixture.jpg'));
 	const data = await m({progressive: false})(buf);
 
 	t.false(isProgressive.buffer(data));
 });
 
 test('strip option', async t => {
-	const buf = await fsP.readFile(path.join(__dirname, 'fixture.jpg'));
+	const buf = await readFile(path.join(__dirname, 'fixture.jpg'));
 	const data = await m({strip: false})(buf);
 
-	t.is((await pify(exifImage)(data)).image.Software, 'imagemin-jpeg-recompress');
+	t.is((await exifImageAsync(data)).image.Software, 'imagemin-jpeg-recompress');
 });
 
 test('strip metadata by default', async t => {
-	const buf = await fsP.readFile(path.join(__dirname, 'fixture.jpg'));
+	const buf = await readFile(path.join(__dirname, 'fixture.jpg'));
 	const data = await m()(buf);
-	const error = await t.throws(pify(exifImage)(data));
+	const error = await t.throwsAsync(() => exifImageAsync(data));
+
 	t.is(error.message, 'No Exif segment found in the given image.');
 });
 
 test('skip optimizing a non-JPG file', async t => {
-	const buf = await fsP.readFile(__filename);
+	const buf = await readFile(__filename);
 	const data = await m()(buf);
 
 	t.deepEqual(data, buf);
 });
 
 test('throw error when a JPG is corrupt', async t => {
-	const buf = await fsP.readFile(path.join(__dirname, 'fixture-corrupt.jpg'));
-	const error = await t.throws(m()(buf));
+	const buf = await readFile(path.join(__dirname, 'fixture-corrupt.jpg'));
+	const error = await t.throwsAsync(() => m()(buf));
+
 	t.regex(error.message, /Corrupt JPEG data/);
 });
