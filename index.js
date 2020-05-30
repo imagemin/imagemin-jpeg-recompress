@@ -3,8 +3,8 @@ const execBuffer = require('exec-buffer');
 const isJpg = require('is-jpg');
 const jpegRecompress = require('jpeg-recompress-bin');
 
-module.exports = opts => buf => {
-	opts = Object.assign({}, opts);
+module.exports = options => buf => {
+	options = {...options};
 
 	if (!Buffer.isBuffer(buf)) {
 		return Promise.reject(new TypeError('Expected a buffer'));
@@ -16,51 +16,51 @@ module.exports = opts => buf => {
 
 	const args = ['--quiet'];
 
-	if (opts.accurate) {
+	if (options.accurate) {
 		args.push('--accurate');
 	}
 
-	if (opts.quality) {
-		args.push('--quality', opts.quality);
+	if (options.quality) {
+		args.push('--quality', options.quality);
 	}
 
-	if (opts.method) {
-		args.push('--method', opts.method);
+	if (options.method) {
+		args.push('--method', options.method);
 	}
 
-	if (opts.target) {
-		args.push('--target', opts.target);
+	if (options.target) {
+		args.push('--target', options.target);
 	}
 
-	if (opts.min) {
-		args.push('--min', opts.min);
+	if (options.min) {
+		args.push('--min', options.min);
 	}
 
-	if (opts.max) {
-		args.push('--max', opts.max);
+	if (options.max) {
+		args.push('--max', options.max);
 	}
 
-	if (opts.loops) {
-		args.push('--loops', opts.loops);
+	if (options.loops) {
+		args.push('--loops', options.loops);
 	}
 
-	if (opts.defish) {
-		args.push('--defish', opts.defish);
+	if (options.defish) {
+		args.push('--defish', options.defish);
 	}
 
-	if (opts.zoom) {
-		args.push('--zoom', opts.zoom);
+	if (options.zoom) {
+		args.push('--zoom', options.zoom);
 	}
 
-	if (opts.progressive === false) {
+	if (options.progressive === false) {
 		args.push('--no-progressive');
 	}
 
-	if (opts.subsample) {
-		args.push('--subsample', opts.subsample);
+	if (options.subsample) {
+		args.push('--subsample', options.subsample);
 	}
 
-	if (opts.strip !== false) {
+	if (options.strip !== false) {
 		args.push('--strip');
 	}
 
