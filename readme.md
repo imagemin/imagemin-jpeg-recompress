@@ -16,13 +16,16 @@ $ npm install --save imagemin-jpeg-recompress
 const imagemin = require('imagemin');
 const imageminJpegRecompress = require('imagemin-jpeg-recompress');
 
-imagemin(['images/*.jpg'], 'build/images', {
-	plugins: [
-		imageminJpegRecompress()
-	]
-}).then(() => {
+(async () => {
+	await imagemin(['images/*.jpg'], {
+		destination: 'build/images',
+		plugins: [
+			imageminJpegRecompress()
+		]
+	});
+
 	console.log('Images optimized');
-});
+})();
 ```
 
 
