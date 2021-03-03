@@ -1,4 +1,4 @@
-# imagemin-jpeg-recompress [![Build Status](https://travis-ci.org/imagemin/imagemin-jpeg-recompress.svg?branch=master)](https://travis-ci.org/imagemin/imagemin-jpeg-recompress)
+# imagemin-jpeg-recompress ![GitHub Actions Status](https://github.com/imagemin/imagemin-jpeg-recompress/workflows/test/badge.svg?branch=master)
 
 > jpeg-recompress imagemin plugin
 
