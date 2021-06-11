@@ -1,14 +1,12 @@
-# imagemin-jpeg-recompress ![GitHub Actions Status](https://github.com/imagemin/imagemin-jpeg-recompress/workflows/test/badge.svg?branch=master)
+# imagemin-jpeg-recompress
 
 > jpeg-recompress imagemin plugin
-
 
 ## Install
 
 ```
 $ npm install --save imagemin-jpeg-recompress
 ```
-
 
 ## Usage
 
@@ -28,86 +26,85 @@ const imageminJpegRecompress = require('imagemin-jpeg-recompress');
 })();
 ```
 
-
 ## API
 
-### imageminJpegRecompress([options])(buffer)
+### imageminJpegRecompress(options?)(buffer)
 
 #### options
 
 ##### accurate
 
-Type: `boolean`<br>
+Type: `boolean`\
 Default: `false`
 
 Favor accuracy over speed.
 
 ##### quality
 
-Type: `string`<br>
+Type: `string`\
 Default: `medium`
 
 Set a quality preset. Available presets: `low`, `medium`, `high` and `veryhigh`.
 
 ##### method
 
-Type: `string`<br>
+Type: `string`\
 Default: `ssim`
 
 Set [comparison method](https://github.com/danielgtaylor/jpeg-archive#image-comparison-metrics). Available methods: `mpe`, `ssim`, `ms-ssim` and `smallfry`.
 
 ##### target
 
-Type: `number`<br>
+Type: `number`\
 Default: `0.9999`
 
 Set target quality.
 
 ##### min
 
-Type: `number`<br>
+Type: `number`\
 Default: `40`
 
 Minimum JPEG quality.
 
 ##### max
 
-Type: `number`<br>
+Type: `number`\
 Default: `95`
 
 Maximum JPEG quality.
 
 ##### loops
 
-Type: `number`<br>
+Type: `number`\
 Default: `6`
 
 Set the number of attempts.
 
 ##### defish
 
-Type: `number`<br>
+Type: `number`\
 Default: `0`
 
 Set defish strength.
 
 ##### progressive
 
-Type: `boolean`<br>
+Type: `boolean`\
 Default: `true`
 
 Enable progressive encoding.
 
 ##### subsample
 
-Type: `string`<br>
+Type: `string`\
 Default: `default`
 
 Set subsampling method. Available values: `default`, `disable`.
 
 ##### strip
 
-Type: `boolean`<br>
+Type: `boolean`\
 Default: `true`
 
 Strips metadata, such as EXIF data.
@@ -117,8 +114,3 @@ Strips metadata, such as EXIF data.
 Type: `buffer`
 
 Buffer to optimize.
-
-
-## License
-
-MIT © [imagemin](https://github.com/imagemin)
